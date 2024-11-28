@@ -1,18 +1,18 @@
 listica = []
-turnos = []
 while True:
     entrada = input().split()
     if entrada[0] == "0" and entrada[1] == "0":
         break
-    else:
-        entrada[1] = int(entrada[1])
-        turnos.append(entrada[1])
-        listica.append(entrada[0])
-        i = 0
-        while i < len(turnos):
-            if turnos[i] <= len(listica):
+    identificacion = entrada[0]
+    maximo = int(entrada[1])
+    listica.append((identificacion, maximo)) 
+    while True:
+        excede = False
+        for i in range(len(listica)):
+            if len(listica) > listica[i][1]:
                 listica.pop(i)
-                turnos.pop(i)
-            else:
-                i += 1
+                excede = True
+                break
+        if not excede:
+            break
 print(len(listica))
