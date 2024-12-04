@@ -5,8 +5,7 @@ c = int(input())
 suma = 0
 m = tuple(map(int, input().split()))
 for i in m:
-    indice = bisect(listica, i)
-    if indice == listica[i-1]:
-        suma += indice
-
+    indice = bisect_left(listica, i)
+    if indice < len(listica) and listica[indice] == i:
+        suma += indice + 1
 print(suma)
