@@ -9,18 +9,16 @@
 #     diferencia = abs(sum(fila_izq) - sum(fila_der))
 #     print(diferencia)
 
-c = int(input())  
-for _ in range(c):
+
+casos = int(input())
+for i in range(casos):
     pesos = list(map(int, input().split(", ")))
     pesos.sort() 
-    fila_izq = []
-    fila_der = [pesos.pop()] 
-    for peso in pesos:
-        if sum(fila_izq) <= sum(fila_der):
-            fila_izq.append(peso) 
+    for j in range(1, len(pesos)):
+        print(pesos[:-j], pesos[-j::], abs(sum(pesos[:-j]) - sum(pesos[-j::])))
+        print(pesos[:-j-1], pesos[-j-1::], abs(sum(pesos[:-j-1]) - sum(pesos[-j-1::])))
+        if abs(sum(pesos[:-j]) - sum(pesos[-j::])) <= abs(sum(pesos[:-j-1]) - sum(pesos[-j-1::])):
+            print(abs(sum(pesos[:-j]) - sum(pesos[-j::])))
+            break
         else:
-            fila_der.append(peso)  
-    if max(fila_izq) >= min(fila_der):
-        fila_der.append(fila_izq.pop(fila_izq.index(max(fila_izq))))  
-    diferencia = abs(sum(fila_izq) - sum(fila_der))
-    print(diferencia)
+            continue
