@@ -1,39 +1,55 @@
 import heapq
-
-# Diccionarios para almacenar los equipos y sus jugadores como heaps
-equipos = {"A": [], "B": [], "C": []}
-puntos = {"A": 0, "B": 0, "C": 0}
-
+ 
+listica_a = []
+listica_b = []
+listica_c = []
+puntos_a = 0
+puntos_b = 0
+puntos_c = 0
+ 
 while True:
-    entrada = input().strip()
+    entrada = input()
     if entrada == "fin del juego":
+        print("Equipo A: ", puntos_a)
+        print("Equipo B: ", puntos_b)
+        print("Equipo C: ", puntos_c)
         break
-    elif entrada == "menores":
-        # Extraer el jugador con el menor número de cada equipo (si hay jugadores)
-        menores = []
-        for equipo, jugadores in equipos.items():
-            if jugadores:  # Si hay jugadores en el equipo
-                menores.append((heapq.heappop(jugadores), equipo))
-        
-        if menores:
-            # Ordenar por el número más bajo
-            menores.sort()
-            # Revisar si hay empate o un claro ganador
-            if len(menores) == 1 or menores[0][0] < menores[1][0]:
-                # Gana el equipo con el menor número
-                ganador = menores[0][1]
-                puntos[ganador] += 1
-            elif len(menores) > 1 and menores[0][0] == menores[1][0]:
-                # Empate, ambos obtienen un punto
-                for _, equipo in menores:
-                    puntos[equipo] += 1
     else:
-        # Entrada de un jugador al equipo
-        equipo, numero = entrada.split()
-        numero = int(numero)
-        heapq.heappush(equipos[equipo], numero)
+        if entrada != "menores":
+            listica = entrada.split()
+            equipo, punto = listica[0], int(listica[1])
+            if equipo == "A":
+                heapq.heappush(listica_a, punto)
+            elif equipo == "B":
+                heapq.heappush(listica_b, punto)       
+            elif equipo == "C":
+                heapq.heappush(listica_c, punto)
 
-# Imprimir los resultados finales
-print(f"Equipo A: {puntos['A']}")
-print(f"Equipo B: {puntos['B']}")
-print(f"Equipo C: {puntos['C']}")
+        else:
+            mini_lista = []
+            if listica_a:
+                punto1 = heapq.heappop(listica_a)
+                mini_lista.append((punto1, 'A'))
+            if listica_b:
+                punto2 = heapq.heappop(listica_b)
+                mini_lista.append((punto2, 'B'))
+            if listica_c:
+                punto3 = heapq.heappop(listica_c)
+                mini_lista.append((punto3, 'C'))
+            if mini_lista:
+                mini_lista.sort()
+                menor_punto = mini_lista[0][0]
+ 
+                for punto, equipo in mini_lista:
+                    if punto == menor_punto:
+                        if equipo == 'A':
+                            puntos_a += 1
+                        elif equipo == 'B':
+                            puntos_b += 1
+                        elif equipo == 'C':
+                            puntos_c += 1
+            else:
+                continue
+
+
+
