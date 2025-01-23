@@ -96,23 +96,31 @@ class BinarySearchTree:
                 stack.append((actual.right, nivel + 1))  
         return max_altura
     
-    def contar_hojas(self, nodo=None):
-        if nodo is None:
-            nodo = self.root
-        if nodo is None: 
+    def contar_hojas(self):
+        if self.root is None:  # Si el árbol está vacío
             return 0
-        if nodo.left is None and nodo.right is None: 
-            return 1
-        return self.contar_hojas(nodo.left) + self.contar_hojas(nodo.right)
+
+        stack = [self.root]  # Pila para almacenar nodos
+        hojas = 0
+
+        while stack:
+            nodo = stack.pop()
+            if nodo.left is None and nodo.right is None:
+                hojas += 1  # Es una hoja
+            if nodo.right:
+                stack.append(nodo.right)
+            if nodo.left:
+                stack.append(nodo.left)
+
+        return hojas
 
 
 c = int(input())
 for _ in range(c):
     arbol = BinarySearchTree()
     entrada = input().split()
-    valores = list(map(int, entrada))
-    for valor in valores:
-        if valor == -1:  
+    for valor in map(int, entrada):
+        if valor == -1: 
             break
         arbol.insert(valor)
     print(arbol.contar_hojas())
