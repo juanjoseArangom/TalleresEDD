@@ -136,7 +136,7 @@ class BinarySearchTree:
 
     def es_completo(self):
         if self.root is None:
-            return True  # Un árbol vacío es completo por definición
+            return True  
 
         queue = [self.root]
         encontrado_nulo = False
@@ -145,15 +145,14 @@ class BinarySearchTree:
             nodo = queue.pop(0)
             if nodo:
                 if encontrado_nulo:
-                    return False  # Si ya encontramos un `None` antes, el árbol no es completo
+                    return 
                 queue.append(nodo.left)
                 queue.append(nodo.right)
             else:
-                encontrado_nulo = True  # Marcamos que hemos encontrado un `None`
+                encontrado_nulo = True 
 
         return True
     
-# Lectura de datos
 c = int(input())
 resultados = []
 
@@ -161,15 +160,11 @@ for _ in range(c):
     arbol = BinarySearchTree()
     entrada = list(map(int, input().split()))
     for valor in entrada:
-        if valor == -1:  # Marcador de fin de entrada
+        if valor == -1:  
             break
         arbol.insert(valor)
-    
-    # Verificar si el árbol es completo
     if arbol.es_completo():
         resultados.append("completo")
     else:
         resultados.append("no")
-
-# Imprimir resultados
 print('\n'.join(resultados))

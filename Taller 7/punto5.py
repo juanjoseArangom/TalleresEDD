@@ -121,22 +121,16 @@ class BinarySearchTree:
 
         return contador
     
-    def imprimir_rotado(self, nodo=None, nivel=0, resultado=None):
+    def imprimir_arbol(self, nodo=None, nivel=0, resultado=None):
         if resultado is None:
             resultado = []
         if nodo is None:
             nodo = self.root
-
-        # Visitamos primero el hijo derecho (para que quede en la parte superior del dibujo)
         if nodo.right:
-            self.imprimir_rotado(nodo.right, nivel + 1, resultado)
-
-        # Agregamos la representación del nodo con tabulaciones correspondientes al nivel
+            self.imprimir_arbol(nodo.right, nivel + 1, resultado)
         resultado.append('\t' * nivel + str(nodo.key))
-
-        # Visitamos el hijo izquierdo
         if nodo.left:
-            self.imprimir_rotado(nodo.left, nivel + 1, resultado)
+            self.imprimir_arbol(nodo.left, nivel + 1, resultado)
 
         return resultado
 
@@ -148,13 +142,9 @@ for _ in range(c):
     arbol = BinarySearchTree()
     entrada = list(map(int, input().split()))
     for valor in entrada:
-        if valor == -1:  # Marcador de fin de entrada
+        if valor == -1: 
             break
         arbol.insert(valor)
-    
-    # Obtenemos la representación rotada del árbol
-    resultado = arbol.imprimir_rotado()
+    resultado = arbol.imprimir_arbol()
     resultados.append('\n'.join(resultado))
-
-# Imprimimos todos los resultados separados por una línea en blanco
 print('\n\n'.join(resultados))
